@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Responsive Admin Dashboard Template">
+        <meta name="keywords" content="admin,dashboard">
+        <meta name="author" content="stacks">
+        <title>SLIDESHOW PTSP</title>
+
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://cdn.notifku.my.id/lime/theme/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.notifku.my.id/lime/theme/assets/plugins/font-awesome/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.notifku.my.id/lime/theme/assets/css/lime.min.css" rel="stylesheet">
+        <link href="https://cdn.notifku.my.id/lime/theme/assets/css/custom.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <div class='loader'>
+            <div class='spinner-grow text-primary' role='status'>
+                <span class='sr-only'>Loading...</span>
+            </div>
+        </div>
+        
+        <div class="lime-sidebar">
+            <div class="lime-sidebar-inner slimscroll">
+                <ul class="accordion-menu">
+                    <li class="sidebar-title">
+                        Apps
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="material-icons">dashboard</i>Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        
+        <div class="lime-header">
+            <nav class="navbar navbar-expand-lg">
+                <section class="material-design-hamburger navigation-toggle">
+                    <a href="javascript:void(0)" class="button-collapse material-design-hamburger__icon">
+                        <span class="material-design-hamburger__layer"></span>
+                    </a>
+                </section>
+                <a class="navbar-brand" href="#">SLIDESHOW PTSP</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="material-icons">keyboard_arrow_down</i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <form class="form-inline my-2 my-lg-0 search" id="search">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search for projects, apps, pages..." aria-label="Search">
+                    </form>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle theme-settings-link" href="#">
+                                <i class="material-icons">layers</i>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a class="dropdown-item" href="#">Account</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li class="divider"></li>
+                                <li><a class="dropdown-item" href="#">Log Out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="search-results">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="search-results-header">
+                            <h4>Search Results</h4>
+                            <a href="#" id="closeSearch"><i class="material-icons">close</i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <ul class="search-result-list user-search">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="lime-container">
+            <div class="lime-body">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <div class="dashboard-info row">
+                                    <div class="info-text col-md-6">
+                                        <h5 class="card-title">Welcome!</h5>
+                                        <p>Klik link di bawah untuk konfigurasi slideshow!</p>
+                                        <ul>
+                                            <li>Klik tombol meja masing-masing</li>
+                                            <li>Pilih gambar</li>
+                                            <li>Simpan</li>
+                                        </ul>
+                                        <a href="/admin/umum" class="btn btn-warning m-t-xs">UMUM</a>
+                                        <a href="/admin/pidana" class="btn btn-warning m-t-xs">PIDANA</a>
+                                        <a href="/admin/hukum" class="btn btn-warning m-t-xs">HUKUM</a>
+                                        <a href="/admin/perdata" class="btn btn-warning m-t-xs">PERDATA</a>
+                                        <a href="/admin/ecourt" class="btn btn-warning m-t-xs">E-COURT</a>
+                                    </div>
+                                    <div class="info-image col-md-6"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-3">
+                          <div class="card stat-card">
+                              <div class="card-body">
+                                  <h5 class="card-title">UMUM</h5>
+                                  <img src="https://cdn.notifku.my.id/lime/theme/assets/images/card_1.jpg" class="card-img-top" alt="Placeholder">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                          <div class="card stat-card">
+                              <div class="card-body">
+                                  <h5 class="card-title">PIDANA</h5>
+                                <img src="https://cdn.notifku.my.id/lime/theme/assets/images/card_1.jpg" class="card-img-top" alt="Placeholder">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                          <div class="card stat-card">
+                              <div class="card-body">
+                                  <h5 class="card-title">HUKUM</h5>
+                                <img src="https://cdn.notifku.my.id/lime/theme/assets/images/card_1.jpg" class="card-img-top" alt="Placeholder">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                          <div class="card stat-card">
+                              <div class="card-body">
+                                  <h5 class="card-title">PERDATA</h5>
+                                <img src="https://cdn.notifku.my.id/lime/theme/assets/images/card_1.jpg" class="card-img-top" alt="Placeholder">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-3">
+                          <div class="card stat-card">
+                              <div class="card-body">
+                                  <h5 class="card-title">E-COURT</h5>
+                                <img src="https://cdn.notifku.my.id/lime/theme/assets/images/card_1.jpg" class="card-img-top" alt="Placeholder">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="lime-footer">
+                      <div class="container">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <span class="footer-text">2024 © Made with ❤️ by <a href="https://instagram.com/theazran_">M Asran</a> </span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+        </div>
+      
+        <script src="https://cdn.notifku.my.id/lime/theme/assets/plugins/jquery/jquery-3.1.0.min.js"></script>
+        <script src="https://cdn.notifku.my.id/lime/theme/assets/plugins/bootstrap/popper.min.js"></script>
+        <script src="https://cdn.notifku.my.id/lime/theme/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="https://cdn.notifku.my.id/lime/theme/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="https://cdn.notifku.my.id/lime/theme/assets/js/lime.min.js"></script>
+    </body>
+</html>

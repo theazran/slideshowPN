@@ -1,0 +1,166 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Admin Page - <%= admin %></title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <!-- Include Sortable.js library for drag and drop -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+      <style>
+        .sortable-list {
+          list-style-type: none;
+          padding: 0;
+        }
+        .sortable-item {
+          margin-bottom: 10px;
+          padding: 10px;
+          background-color: #f8f9fa;
+          border: 1px solid #ccc;
+          cursor: grab;
+          display: flex;
+          align-items: center;
+        }
+        .sortable-item img {
+          max-width: 100px;
+          max-height: 100px;
+          margin-right: 10px;
+        }
+        .delete-image {
+          margin-left: auto; /* Push the delete button to the right */
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container mt-5">
+        <h2>Admin Page - <%= admin %></h2>
+
+        <form action="/upload/<%= admin %>" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="images">Upload Images</label>
+            <input type="file" class="form-control-file" id="images" name="images" multiple>
+          </div>
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+        <hr>
+        <form action="/rest/<%= admin %>"  method="POST">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="rest" name="rest" <%= isResting ? 'checked' : '' %>>
+            <label class="form-check-label" for="rest">
+              Sedang Istirahat
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Update Status</button>
+          <button type="submit" class="btn btn-warning mt-3">Refresh</button>
+        </form>
+        <hr>
+        <ul id="sortable" class="sortable-list">
+          <% images.forEach((image, index) => { %>
+            <li class="sortable-item" data-index="<%= index %>">
+              <img src="/uploads/<%= admin %>/<%= image %>" class="img-thumbnail mr-2">
+              <%= image %>
+              <button class="btn btn-danger btn-sm ml-2 delete-image" data-filename="<%= image %>">Delete</button>
+            </li>
+          <% }); %>
+        </ul>
+
+        <hr>
+      </div>
+
+      <!-- JavaScript for Sortable.js and Socket.IO -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const sortable = new Sortable(document.getElementById('sortable'), {
+            animation: 150,
+            onEnd: function(evt) {
+              const order = [];
+              document.querySelectorAll('.sortable-item').forEach(item => {
+                order.push(item.querySelector('img').src.split('/').pop());
+              });
+
+              fetch(`/save-order/<%= admin %>`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ order: order })
+              });
+            }
+          });
+
+          const socket = io();
+
+          document.querySelectorAll('.delete-image').forEach(button => {
+            button.addEventListener('click', function() {
+              const filename = this.dataset.filename;
+
+              fetch(`/delete-image/<%= admin %>/${filename}`, {
+                method: 'DELETE'
+              }).then(response => {
+                if (response.ok) {
+                  this.closest('.sortable-item').remove();
+                  // Emit event to update slideshow after deletion
+                  socket.emit('imageDeleted', { admin: '<%= admin %>', filename: filename });
+                }
+              });
+            });
+          });
+
+          socket.on('orderUpdate', function(data) {
+            if (data.admin === '<%= admin %>') {
+              const list = document.getElementById('sortable');
+              list.innerHTML = '';
+              data.images.forEach(image => {
+                const li = document.createElement('li');
+                li.className = 'sortable-item';
+                li.innerHTML = `<img src="/uploads/<%= admin %>/${image}" class="img-thumbnail mr-2">${image}<button class="btn btn-danger btn-sm ml-2 delete-image" data-filename="${image}">Delete</button>`;
+                list.appendChild(li);
+              });
+
+              // Reinitialize delete buttons
+              document.querySelectorAll('.delete-image').forEach(button => {
+                button.addEventListener('click', function() {
+                  const filename = this.dataset.filename;
+
+                  fetch(`/delete-image/<%= admin %>/${filename}`, {
+                    method: 'DELETE'
+                  }).then(response => {
+                    if (response.ok) {
+                      this.closest('.sortable-item').remove();
+                      // Emit event to update slideshow after deletion
+                      socket.emit('imageDeleted', { admin: '<%= admin %>', filename: filename });
+                    }
+                  });
+                });
+              });
+            }
+          });
+
+          socket.on('statusUpdate', function(data) {
+            if (data.admin === '<%= admin %>') {
+              const slideshow = document.getElementById('slideshow');
+              if (data.isResting) {
+                slideshow.innerHTML = '<p>Currently Resting</p>';
+              } else {
+                location.reload(); // Reload page to fetch new images
+              }
+            }
+          });
+
+          socket.on('imageDeleted', function(data) {
+            if (data.admin === '<%= admin %>') {
+              const slideshow = document.getElementById('slideshow');
+              slideshow.innerHTML = '';
+              data.images.forEach((image, index) => {
+                const div = document.createElement('div');
+                div.className = `slide ${index === 0 ? 'active' : ''}`;
+                div.innerHTML = `<img src="/uploads/<%= admin %>/${image}" class="img-fluid">`;
+                slideshow.appendChild(div);
+              });
+            }
+          });
+        });
+      </script>
+    </body>
+    </html>
